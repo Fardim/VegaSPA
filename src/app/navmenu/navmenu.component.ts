@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AuthService } from './../_services/auth.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'nav-menu',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
     isCollapsed = false;
+
+    constructor(private auth: AuthService) {}
 }

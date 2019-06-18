@@ -1,0 +1,75 @@
+<h2>Vehicle</h2>
+
+<div *ngIf="vehicle">
+    <tabset #vehicleTabs>
+        <tab heading="Vehicle">
+            <div>
+                <h3>Basics</h3>
+                <ul>
+                    <li>Make : {{ vehicle.make.name }}</li>
+                    <li>Model : {{ vehicle.model.name }}</li>
+                    <li>
+                        Registered :
+                        {{ vehicle.isRegistered == true ? 'Yes' : 'Np' }}
+                    </li>
+                </ul>
+                <h3>Features</h3>
+                <ul>
+                    <li *ngFor="let f of vehicle.features">{{ f.name }}</li>
+                </ul>
+                <h3>Contact</h3>
+                <ul>
+                    <li>Make : {{ vehicle.contact.name }}</li>
+                    <li>Email : {{ vehicle.contact.email }}</li>
+                    <li>Phone : {{ vehicle.contact.phone }}</li>
+                </ul>
+                <br />
+                <button
+                    class="btn btn-primary btn-margin"
+                    [routerLink]="['/vehicles/edit/', vehicle.id]"
+                >
+                    Edit
+                </button>
+                <button class="btn btn-danger" type="button" (click)="delete()">
+                    Delete
+                </button>
+                <button
+                    class="btn btn-default btn-margin"
+                    [routerLink]="['/vehicles']"
+                >
+                    View All Vehicles
+                </button>
+            </div>
+        </tab>
+        <tab heading="Photos">
+            <h3>Photos</h3>
+            <input type="file" (change)="uploadPhoto()" #fileInput />
+            <br />
+            <div class="progressbar" *ngIf="progress && progress.message < 100">
+                <progressbar
+                    class="progress-striped active"
+                    [value]="progress?.message"
+                    [striped]="true"
+                    animate="true"
+                    max="100"
+                    type="success"
+                    >{{ progress?.message }}</progressbar
+                >
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-2" *ngFor="let photo of photos">
+                    <img class="thumbnail" src="{{ photo.url }}" alt="" />
+                    <div class="text-center">
+                        <button
+                            class="btn btn-xs btn-danger"
+                            (click)="deletePhoto(photo.id)"
+                        >
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>

@@ -1,0 +1,101 @@
+<h3>
+    Vehicles
+</h3>
+
+<button
+    class="btn btn-primary"
+    [routerLink]="['/vehicles/new']"
+    style="margin-bottom: 10px;"
+>
+    New Vehicle
+</button>
+
+<div class="well">
+    <div class="form-group">
+        <label for="make">Make</label>
+        <select
+            class="form-control"
+            name="make"
+            id="make"
+            [(ngModel)]="query.makeId"
+            (change)="onFilterChange()"
+        >
+            <option value=""></option>
+            <option *ngFor="let make of makes" value="{{ make.id }}">{{
+                make.name
+            }}</option>
+        </select>
+    </div>
+    <button class="btn btn-primary" (click)="reset()">Reset</button>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th *ngFor="let col of columns">
+                <div *ngIf="col.isSortable" (click)="sortBy(col.key)">
+                    {{ col.title }}
+                    <i
+                        *ngIf="query.sortBy === col.key"
+                        class="fa"
+                        [class.fa-sort-asc]="query.isSortAscending"
+                        [class.fa-sort-desc]="!query.isSortAscending"
+                    ></i>
+                </div>
+                <div *ngIf="!col.isSortable">{{ col.title }}</div>
+            </th>
+            <!-- <th (click)="sortBy('id')">
+                Id
+                <i
+                    *ngIf="query.sortBy === 'id'"
+                    class="fa"
+                    [class.fa-sort-asc]="query.isSortAscending"
+                    [class.fa-sort-desc]="!query.isSortAscending"
+                ></i>
+            </th>
+            <th (click)="sortBy('make')">
+                Make
+                <i
+                    *ngIf="query.sortBy === 'make'"
+                    class="fa"
+                    [class.fa-sort-asc]="query.isSortAscending"
+                    [class.fa-sort-desc]="!query.isSortAscending"
+                ></i>
+            </th>
+            <th (click)="sortBy('model')">
+                Model
+                <i
+                    *ngIf="query.sortBy === 'model'"
+                    class="fa"
+                    [class.fa-sort-asc]="query.isSortAscending"
+                    [class.fa-sort-desc]="!query.isSortAscending"
+                ></i>
+            </th>
+            <th (click)="sortBy('contactName')">
+                Contact Name
+                <i
+                    *ngIf="query.sortBy === 'contactName'"
+                    class="fa"
+                    [class.fa-sort-asc]="query.isSortAscending"
+                    [class.fa-sort-desc]="!query.isSortAscending"
+                ></i>
+            </th> -->
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let v of vehicles">
+            <td>{{ v.id }}</td>
+            <td>{{ v.make.name }}</td>
+            <td>{{ v.model.name }}</td>
+            <td>{{ v.contact.name }}</td>
+            <td><a [routerLink]="['/vehicles', v.id]">View</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<pagination
+    [total-items]="query.totalItems"
+    [page-size]="query.pageSize"
+    (page-changed)="onPageChange($event)"
+></pagination>
