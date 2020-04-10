@@ -23,7 +23,7 @@
     "@sentry/browser": "^5.2.1",
     "@types/underscore": "^1.8.18",
     "alertifyjs": "^1.11.2",
-    "auth0-js": "^9.10.4",
+    "auth0-js": "^9.13.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
